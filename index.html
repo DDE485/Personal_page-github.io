@@ -405,6 +405,140 @@
             margin-bottom: 1rem;
         }
 
+        /* Package Sections */
+        .packages-section {
+            margin-bottom: 4rem;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .subsection-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 4rem 0;
+        }
+
+        .components-section {
+            margin-top: 4rem;
+        }
+
+        /* Featured & Premium Cards */
+        .product-card.featured,
+        .product-card.premium {
+            position: relative;
+            border: 2px solid var(--accent-green);
+        }
+
+        .product-card.premium {
+            border: 2px solid var(--accent-cyan);
+            background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), var(--bg-card));
+        }
+
+        .featured-badge,
+        .premium-badge {
+            position: absolute;
+            top: -12px;
+            right: 2rem;
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .premium-badge {
+            background: var(--accent-cyan);
+        }
+
+        /* Compact Product Cards */
+        .product-card.compact {
+            padding: 2rem;
+        }
+
+        .product-card.compact .product-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card.compact h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card.compact p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card.compact .price {
+            font-size: 1.5rem;
+        }
+
+        .product-card.compact .product-features {
+            margin-bottom: 1rem;
+        }
+
+        .product-card.compact .product-features li {
+            font-size: 0.85rem;
+            padding: 0.3rem 0;
+        }
+
+        /* Language Badges */
+        .lang-badges {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .lang-badge {
+            padding: 0.3rem 0.8rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        /* Pricing Note */
+        .pricing-note {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .pricing-note p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .pricing-note strong {
+            color: var(--accent-cyan);
+        }
+
         /* Process Section */
         .process-steps {
             display: grid;
@@ -515,8 +649,20 @@
                 grid-template-columns: 1fr;
             }
 
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
             .social-links {
                 flex-direction: column;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
             }
         }
 
@@ -597,51 +743,186 @@
                 <h2 class="section-title">Meine Produkte & Services</h2>
                 <p class="section-subtitle">Professionelle Tools für ernsthaften Algo-Trading</p>
                 
-                <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-icon">{}</div>
-                        <h3>Strategy Generator</h3>
-                        <p>Das Herzstück meines Systems. Automatische Generierung und Validierung von Trading-Strategien mit integriertem Backtesting.</p>
-                        <ul class="product-features">
-                            <li>Automatische Strategie-Generierung</li>
-                            <li>Backtesting auf 3M+ Datenpunkten</li>
-                            <li>Detaillierte Performance-Berichte</li>
-                            <li>Entry & Exit Definitionen</li>
-                            <li>Python & C++ Implementation</li>
-                        </ul>
-                        <div class="price">Premium Asset</div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Verfügbar als Firmengeheimnis oder Lizenzierung</p>
-                    </div>
+                <!-- Complete Packages - Featured -->
+                <div class="packages-section">
+                    <h3 class="subsection-title">🎯 Complete Packages - Ready to Deploy</h3>
+                    <div class="packages-grid">
+                        <div class="product-card featured">
+                            <div class="featured-badge">BELIEBT</div>
+                            <div class="product-icon">⚡</div>
+                            <h3>Complete Strategy Package</h3>
+                            <p>Strategie vom Strategy Generator, komplett ready-to-deploy mit allen Tools.</p>
+                            <ul class="product-features">
+                                <li>Strategie vom Strategy Generator</li>
+                                <li>Validierte Backtest-Ergebnisse & Reports</li>
+                                <li>Python oder C++ Source Code</li>
+                                <li>Data Fetcher (CCXT oder yFinance)</li>
+                                <li>Angepasster Backtester</li>
+                                <li>API Integration komplett</li>
+                                <li>Deployment Support & Setup-Hilfe</li>
+                            </ul>
+                            <div class="price">300€</div>
+                            <a href="#contact" class="btn btn-primary" style="width: 100%;">Jetzt Anfragen</a>
+                        </div>
 
-                    <div class="product-card">
-                        <div class="product-icon">📊</div>
-                        <h3>Complete Strategy Package</h3>
-                        <p>Vollständiges Code-Paket mit gebacktesteter Strategie, ready to deploy.</p>
-                        <ul class="product-features">
-                            <li>Validierte Backtest-Ergebnisse</li>
-                            <li>Python oder C++ Source Code</li>
-                            <li>Custom Data Fetcher</li>
-                            <li>API Integration (CCXT/YFinance)</li>
-                            <li>Generischer Backtester angepasst</li>
-                            <li>Setup & Deployment Support</li>
-                        </ul>
-                        <div class="price">ab 300€</div>
-                        <a href="#contact" class="btn btn-primary" style="width: 100%;">Jetzt Anfragen</a>
+                        <div class="product-card premium">
+                            <div class="premium-badge">PREMIUM</div>
+                            <div class="product-icon">👑</div>
+                            <h3>Premium Custom Package</h3>
+                            <p>Individuell entwickelte Custom Strategie nach deinen exakten Anforderungen.</p>
+                            <ul class="product-features">
+                                <li>Custom Strategie-Entwicklung</li>
+                                <li>Ausführliche Backtest-Suite</li>
+                                <li>Python oder C++ Implementation</li>
+                                <li>Multi-Source Data Fetcher</li>
+                                <li>Custom Backtester mit Features</li>
+                                <li>Full API Integration Suite</li>
+                                <li>Priority Support & Deployment</li>
+                                <li>Optimization & Fine-Tuning</li>
+                            </ul>
+                            <div class="price">1.500€</div>
+                            <a href="#contact" class="btn btn-primary" style="width: 100%;">Beratung Buchen</a>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="product-card">
-                        <div class="product-icon">🗃️</div>
-                        <h3>Market Data Archive</h3>
-                        <p>Umfangreiche historische Marktdaten für deine eigenen Analysen und Backtests.</p>
-                        <ul class="product-features">
-                            <li>CSV-Daten ab 2017</li>
-                            <li>Multiple Märkte & Timeframes</li>
-                            <li>Data Kompression Tools</li>
-                            <li>Custom Data Fetcher</li>
-                            <li>Regelmäßige Updates</li>
-                        </ul>
-                        <div class="price">Custom</div>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Individuelle Pakete verfügbar</p>
+                <div class="divider"></div>
+
+                <!-- Individual Components -->
+                <div class="components-section">
+                    <h3 class="subsection-title">🔧 Einzelne Tools & Komponenten</h3>
+                    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 2rem;">
+                        Alle Tools verfügbar in Python & C++ • Mix & Match nach Bedarf
+                    </p>
+
+                    <div class="products-grid">
+                        <!-- Backtesting Tools -->
+                        <div class="product-card compact">
+                            <div class="product-icon">📈</div>
+                            <h3>Backtesting Tool - Simple</h3>
+                            <p>Für vordefinierte Strategien mit Standard-Indikatoren.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Standard-Indikatoren Support</li>
+                                <li>Performance-Metriken</li>
+                                <li>CSV-Export der Ergebnisse</li>
+                            </ul>
+                            <div class="price">50€</div>
+                        </div>
+
+                        <div class="product-card compact">
+                            <div class="product-icon">📊</div>
+                            <h3>Backtesting Tool - Custom</h3>
+                            <p>Für komplexe Custom Strategien mit erweiterten Features.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Custom Indikatoren & Logik</li>
+                                <li>Erweiterte Metriken & Analysen</li>
+                                <li>Detaillierte Reports & Visualisierung</li>
+                            </ul>
+                            <div class="price">120€</div>
+                        </div>
+
+                        <!-- Strategies -->
+                        <div class="product-card compact">
+                            <div class="product-icon">{}</div>
+                            <h3>Strategy Generator Output</h3>
+                            <p>Eine validierte Strategie direkt vom Generator.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Auto-generierte Strategie</li>
+                                <li>Backtest-Report inkludiert</li>
+                                <li>Entry/Exit Definitionen</li>
+                            </ul>
+                            <div class="price">80€</div>
+                        </div>
+
+                        <div class="product-card compact">
+                            <div class="product-icon">⚙️</div>
+                            <h3>Custom Strategie-Entwicklung</h3>
+                            <p>Individuell nach deinen spezifischen Anforderungen entwickelt.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Vollständig maßgeschneidert</li>
+                                <li>Deine Ideen implementiert</li>
+                                <li>Dokumentation & Tests</li>
+                            </ul>
+                            <div class="price">400€</div>
+                        </div>
+
+                        <!-- Data Fetchers -->
+                        <div class="product-card compact">
+                            <div class="product-icon">🔌</div>
+                            <h3>Data Fetcher - CCXT</h3>
+                            <p>Crypto-Daten von allen großen Exchanges via CCXT.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Multi-Exchange Support</li>
+                                <li>Real-time & Historical Data</li>
+                                <li>Caching & Compression</li>
+                            </ul>
+                            <div class="price">60€</div>
+                        </div>
+
+                        <div class="product-card compact">
+                            <div class="product-icon">📡</div>
+                            <h3>Data Fetcher - yFinance</h3>
+                            <p>Stocks, ETFs, Forex via Yahoo Finance API.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Stocks, ETFs, Indices</li>
+                                <li>Multiple Timeframes</li>
+                                <li>Automatische Updates</li>
+                            </ul>
+                            <div class="price">60€</div>
+                        </div>
+
+                        <!-- Extras -->
+                        <div class="product-card compact">
+                            <div class="product-icon">🗃️</div>
+                            <h3>Market Data Archive</h3>
+                            <p>Historische CSV-Daten ab 2017 für eigene Analysen.</p>
+                            <ul class="product-features">
+                                <li>Multiple Märkte & Assets</li>
+                                <li>Verschiedene Timeframes</li>
+                                <li>Clean & Ready-to-Use</li>
+                            </ul>
+                            <div class="price">Custom</div>
+                        </div>
+
+                        <div class="product-card compact">
+                            <div class="product-icon">🚀</div>
+                            <h3>API Integration</h3>
+                            <p>Complete API-Integration für deinen Broker/Exchange.</p>
+                            <div class="lang-badges">
+                                <span class="lang-badge">Python</span>
+                                <span class="lang-badge">C++</span>
+                            </div>
+                            <ul class="product-features">
+                                <li>Order Execution</li>
+                                <li>Portfolio Management</li>
+                                <li>Error Handling & Logging</li>
+                            </ul>
+                            <div class="price">90€</div>
+                        </div>
                     </div>
                 </div>
 
@@ -652,6 +933,10 @@
                         → Strategy validated: 67.8% win rate | Sharpe: 2.34<br>
                         → Generating code & documentation...
                     </div>
+                </div>
+
+                <div class="pricing-note">
+                    <p><strong>Hinweis:</strong> Alle Preise verstehen sich zzgl. MwSt. • Bundle-Rabatte verfügbar • Support & Updates nach Vereinbarung</p>
                 </div>
             </div>
         </section>
