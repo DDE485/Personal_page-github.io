@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strategien | FQAT Algorithmic Trading</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a1f2e;
+            --accent-green: #00ff88;
+            --accent-cyan: #00d9ff;
+            --accent-red: #ff0055;
+            --text-primary: #e8eaed;
+            --text-secondary: #9ca3af;
+            --border-color: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 23, 0.8);
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: '>';
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-green);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--accent-green);
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .strategy-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .strategy-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .strategy-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .strategy-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .strategy-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-box {
+            background: var(--bg-card);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .terminal {
+            background: #000;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .terminal-line {
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .footer-links span {
+            color: var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header>
+        <div class="container">
+            <nav class="nav-container">
+                <a href="index.html" class="logo">FQAT</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="strategien.html" class="nav-link active">Strategien</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title">Trading Strategien</h1>
+                <p class="page-subtitle">Datengetriebene Algorithmen für profitables Trading. Von Momentum bis Mean-Reversion.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">// Strategie-Kategorien</h2>
+                
+                <div class="strategy-grid">
+                    <div class="strategy-card">
+                        <div class="strategy-header">
+                            <div class="strategy-icon">📈</div>
+                            <div>
+                                <h3>Momentum Strategien</h3>
+                            </div>
+                        </div>
+                        <p>Nutzen Markttrends und Schwung-Indikatoren, um Bewegungen frühzeitig zu erkennen und zu handeln.</p>
+                        <ul style="color: var(--text-secondary); list-style-position: inside; margin-bottom: 1rem;">
+                            <li>Trend Following</li>
+                            <li>Breakout Detection</li>
+                            <li>Relative Strength</li>
+                        </ul>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-value">65-75%</span>
+                                <span class="metric-label">Win Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">2.1-2.8</span>
+                                <span class="metric-label">Sharpe Ratio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy-card">
+                        <div class="strategy-header">
+                            <div class="strategy-icon">🔄</div>
+                            <div>
+                                <h3>Mean Reversion</h3>
+                            </div>
+                        </div>
+                        <p>Basiert auf der Annahme, dass Preise zu ihrem Mittelwert zurückkehren. Ideal für Range-Märkte.</p>
+                        <ul style="color: var(--text-secondary); list-style-position: inside; margin-bottom: 1rem;">
+                            <li>Statistical Arbitrage</li>
+                            <li>RSI/Bollinger Bands</li>
+                            <li>Z-Score Trading</li>
+                        </ul>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-value">68-78%</span>
+                                <span class="metric-label">Win Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">1.8-2.4</span>
+                                <span class="metric-label">Sharpe Ratio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy-card">
+                        <div class="strategy-header">
+                            <div class="strategy-icon">⚡</div>
+                            <div>
+                                <h3>Volatility Based</h3>
+                            </div>
+                        </div>
+                        <p>Nutzt Volatilitäts-Änderungen und Options-Preisanomalien für profitable Trades.</p>
+                        <ul style="color: var(--text-secondary); list-style-position: inside; margin-bottom: 1rem;">
+                            <li>Volatility Breakouts</li>
+                            <li>ATR-Based Entries</li>
+                            <li>Straddle/Strangle</li>
+                        </ul>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-value">62-72%</span>
+                                <span class="metric-label">Win Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">2.0-2.6</span>
+                                <span class="metric-label">Sharpe Ratio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy-card">
+                        <div class="strategy-header">
+                            <div class="strategy-icon">🤖</div>
+                            <div>
+                                <h3>Machine Learning</h3>
+                            </div>
+                        </div>
+                        <p>Fortgeschrittene ML-Modelle erkennen komplexe Muster in historischen Daten.</p>
+                        <ul style="color: var(--text-secondary); list-style-position: inside; margin-bottom: 1rem;">
+                            <li>Neural Networks</li>
+                            <li>Random Forest Classifier</li>
+                            <li>LSTM Predictions</li>
+                        </ul>
+                        <div class="metrics">
+                            <div class="metric">
+                                <span class="metric-value">70-80%</span>
+                                <span class="metric-label">Win Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">2.3-3.1</span>
+                                <span class="metric-label">Sharpe Ratio</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">// Wie der Strategy Generator arbeitet</h2>
+                
+                <div class="info-box">
+                    <h4>🔬 Data-Driven Approach</h4>
+                    <p>Der Strategy Generator analysiert über 3 Millionen historische Datenpunkte, um profitable Muster zu identifizieren. Jede generierte Strategie durchläuft rigorose Backtests bevor sie validiert wird.</p>
+                </div>
+
+                <div class="terminal">
+                    <div class="terminal-line">$ ./strategy_generator --mode=optimize --dataset=crypto_3M</div>
+                    <div style="color: var(--text-secondary);">
+                        → Loading 3,247,891 data points...<br>
+                        → Testing parameter combinations: 15,384<br>
+                        → Best configuration found:<br>
+                        &nbsp;&nbsp;&nbsp;Strategy: Momentum + Mean Reversion Hybrid<br>
+                        &nbsp;&nbsp;&nbsp;Win Rate: 72.4%<br>
+                        &nbsp;&nbsp;&nbsp;Sharpe Ratio: 2.67<br>
+                        &nbsp;&nbsp;&nbsp;Max Drawdown: -12.3%<br>
+                        → Generating Python code...<br>
+                        → Generating C++ code...<br>
+                        ✓ Strategy validated and ready for deployment
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>📊 Validierungs-Prozess</h4>
+                    <p><strong>1. Parameter Optimization:</strong> Tausende Kombinationen werden getestet<br>
+                    <strong>2. Walk-Forward Analysis:</strong> Out-of-Sample Testing verhindert Overfitting<br>
+                    <strong>3. Monte Carlo Simulation:</strong> Robustheit unter verschiedenen Marktbedingungen<br>
+                    <strong>4. Stress Testing:</strong> Performance in Krisen-Szenarien</p>
+                </div>
+
+                <div class="info-box" style="border-left-color: var(--accent-green);">
+                    <h4 style="color: var(--accent-green);">💡 Custom vs. Generated Strategien</h4>
+                    <p><strong>Generated Strategies:</strong> Schnell verfügbar, backtested, ready-to-deploy. Perfekt für Standard-Use-Cases.<br><br>
+                    <strong>Custom Strategies:</strong> Vollständig auf deine Anforderungen zugeschnitten. Ideal wenn du spezifische Markt-Hypothesen testen willst oder einzigartige Edge-Cases hast.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">// Verfügbare Assets & Märkte</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--accent-green); margin-bottom: 1rem;">Cryptocurrencies</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">BTC, ETH, alle Major Altcoins<br>Via CCXT - 100+ Exchanges</p>
+                    </div>
+                    <div style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--accent-green); margin-bottom: 1rem;">Stocks & ETFs</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">US, EU, Asia Markets<br>Via yFinance API</p>
+                    </div>
+                    <div style="background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--accent-green); margin-bottom: 1rem;">Forex & Commodities</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Major Pairs, Gold, Oil<br>Multiple Data Sources</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 FQAT | Algorithmic Trading Strategies</p>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <span>•</span>
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
