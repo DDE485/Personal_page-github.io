@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | FQAT Algorithmic Trading</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a1f2e;
+            --accent-green: #00ff88;
+            --accent-cyan: #00d9ff;
+            --text-primary: #e8eaed;
+            --text-secondary: #9ca3af;
+            --border-color: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 23, 0.8);
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: '>';
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent-green);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .content-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-block h2 {
+            color: var(--accent-green);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            color: var(--accent-green);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-green), var(--accent-cyan));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .timeline-date {
+            font-family: 'Space Mono', monospace;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .quote-block {
+            background: var(--bg-primary);
+            border-left: 4px solid var(--accent-green);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header>
+        <div class="container">
+            <nav class="nav-container">
+                <a href="index.html" class="logo">FQAT</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="strategien.html" class="nav-link">Strategien</a></li>
+                    <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <div class="container">
+                <h1 class="page-title">About FQAT</h1>
+                <p class="page-subtitle">Von Daten besessen. Durch Code getrieben. Für Performance optimiert.</p>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="container">
+                <div class="content-block">
+                    <h2>Die Mission</h2>
+                    <p>
+                        Ich entwickle professionelle Algo-Trading-Strategien, die auf Daten basieren und durch rigorose Backtests validiert werden. 
+                        Mit meinem proprietären Strategy Generator transformiere ich Marktdaten in profitable Trading-Systeme – automatisiert, skalierbar und ready-to-deploy.
+                    </p>
+                    <p>
+                        Mein Ziel ist es, institutionelles Niveau an Trading-Tools und -Strategien auch für individuelle Trader und kleinere Firmen zugänglich zu machen. 
+                        Jede Strategie wird mit der gleichen Sorgfalt entwickelt, die große Hedgefonds in ihre Quant-Research investieren.
+                    </p>
+                </div>
+
+                <div class="quote-block">
+                    "Daten lügen nicht. Märkte sind chaotisch, aber mit den richtigen Tools und ausreichend historischen Daten 
+                    lassen sich profitable Muster identifizieren. Der Schlüssel liegt in rigoroser Validierung und emotionslosem Code."
+                </div>
+
+                <div class="content-block">
+                    <h2>Der Workflow</h2>
+                    <p>
+                        Jede Strategie durchläuft einen mehrstufigen Entwicklungs- und Validierungsprozess:
+                    </p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">SCHRITT 1</div>
+                            <div class="timeline-content">
+                                <strong>Data Collection:</strong> Sammlung historischer Daten ab 2017 mit über 3 Millionen Datenpunkten aus verschiedenen Märkten und Timeframes.
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">SCHRITT 2</div>
+                            <div class="timeline-content">
+                                <strong>Strategy Generation:</strong> Der Strategy Generator testet tausende Parameterkombinationen und identifiziert profitable Muster.
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">SCHRITT 3</div>
+                            <div class="timeline-content">
+                                <strong>Rigorous Backtesting:</strong> Walk-forward Analysis, Monte Carlo Simulation und Stress Testing unter verschiedenen Marktbedingungen.
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">SCHRITT 4</div>
+                            <div class="timeline-content">
+                                <strong>Code Implementation:</strong> Sauberer, wartbarer Code in Python oder C++ mit vollständiger Dokumentation.
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">SCHRITT 5</div>
+                            <div class="timeline-content">
+                                <strong>Deployment & Support:</strong> Integration mit deinem Broker, Setup-Unterstützung und kontinuierliches Monitoring.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Core Values</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <div class="value-icon">📊</div>
+                            <h3>Data-Driven</h3>
+                            <p>Jede Entscheidung basiert auf quantitativer Analyse. Keine Emotionen, keine Bauchgefühle – nur validierte Daten.</p>
+                        </div>
+
+                        <div class="value-card">
+                            <div class="value-icon">🔬</div>
+                            <h3>Wissenschaftlich</h3>
+                            <p>Rigorose Backtests, Walk-Forward Analysis und Out-of-Sample Testing verhindern Overfitting und garantieren Robustheit.</p>
+                        </div>
+
+                        <div class="value-card">
+                            <div class="value-icon">⚡</div>
+                            <h3>Performance</h3>
+                            <p>C++ für High-Frequency Trading, optimierte Algorithmen und minimale Latenz bei kritischen Operationen.</p>
+                        </div>
+
+                        <div class="value-card">
+                            <div class="value-icon">🎯</div>
+                            <h3>Präzision</h3>
+                            <p>Clean Code, ausführliche Dokumentation und klare Entry/Exit-Definitionen für jede Strategie.</p>
+                        </div>
+
+                        <div class="value-card">
+                            <div class="value-icon">🔄</div>
+                            <h3>Continuous Improvement</h3>
+                            <p>Der Strategy Generator lernt kontinuierlich aus neuen Daten. Strategien werden fortlaufend optimiert.</p>
+                        </div>
+
+                        <div class="value-card">
+                            <div class="value-icon">🤝</div>
+                            <h3>Transparency</h3>
+                            <p>Vollständiger Zugang zum Code, detaillierte Backtest-Reports und ehrliche Kommunikation über Risiken.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block">
+                    <h2>Technology Stack</h2>
+                    <p>
+                        Ich arbeite mit professionellen Tools und Technologien, die auch institutionelle Trader verwenden:
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Languages</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Python, C++, SQL</p>
+                        </div>
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Data Sources</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">CCXT, yFinance, Custom APIs</p>
+                        </div>
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Analysis</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">NumPy, Pandas, TensorFlow</p>
+                        </div>
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Databases</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">PostgreSQL, InfluxDB</p>
+                        </div>
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Infrastructure</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Docker, AWS, Linux</p>
+                        </div>
+                        <div style="background: rgba(0, 255, 136, 0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <h4 style="color: var(--accent-green); margin-bottom: 0.5rem;">Testing</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">Custom Backtester, Walk-Forward</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-block" style="text-align: center; background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 217, 255, 0.1));">
+                    <h2>Let's Build Something</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                        Bereit für professionelles Algo-Trading? Egal ob du eine fertige Strategie suchst oder eine Custom-Lösung brauchst – lass uns darüber sprechen.
+                    </p>
+                    <a href="index.html#contact" style="display: inline-block; padding: 1rem 2.5rem; background: var(--accent-green); color: var(--bg-primary); border-radius: 8px; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-weight: 700; transition: all 0.3s ease;">
+                        Kontakt Aufnehmen →
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 FQAT | Algorithmic Trading Strategies</p>
+            <div class="footer-links">
+                <a href="impressum.html">Impressum</a>
+                <span>•</span>
+                <a href="datenschutz.html">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
